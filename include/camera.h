@@ -35,6 +35,19 @@ public:
     // Teleport to the North Entrance Gate
     void teleportToGate();
 
+    // Interaction states
+    bool isSitting;
+    glm::vec3 sitPosition;
+    bool isRidingBike;
+    float bikeSpeed;
+    float bikeYaw;
+    float bikeWheelRotation;
+
+    void sit(const glm::vec3& seatPos, float facingYaw);
+    void standUp();
+    void mountBike(const glm::vec3& startPos, float facingYaw);
+    void dismountBike();
+
 private:
     void updateCameraVectors();
 };

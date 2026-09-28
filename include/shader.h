@@ -1,12 +1,7 @@
 #ifndef SHADER_H
 #define SHADER_H
 
-#ifdef __APPLE__
-#include <OpenGL/gl3.h>
-#else
-#define GL_GLEXT_PROTOTYPES
-#include <GL/gl.h>
-#endif
+#include <glad/glad.h>
 
 #include <string>
 #include <glm/glm.hpp>
