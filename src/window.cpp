@@ -195,7 +195,17 @@ void processInput(GLFWwindow* window, float deltaTime) {
     bool s = (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS);
     bool a = (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS);
     bool d = (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS);
+    
+    glm::vec3 oldPos = camera.Position;
     camera.processKeyboard(w, s, a, d, deltaTime);
+    
+    // Revert position if we collide with a tree or bench
+    if (!camera.isSitting && park.checkCollision(camera.Position, 0.5f)) {
+        camera.Position = oldPos;
+        if (camera.isRidingBike) {
+            camera.bikeSpeed = -camera.bikeSpeed * 0.5f; // Bounce slightly on crash
+        }
+    }
 
     // 360 Rotation via Keyboard (Arrow keys & Q)
     float keyTurnSpeed = 90.0f * deltaTime; // 90 degrees per second

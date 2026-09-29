@@ -56,6 +56,9 @@ public:
     bool showHUD = true;
     void toggleHUD() { showHUD = !showHUD; }
 
+    // Collision detection
+    bool checkCollision(const glm::vec3& pos, float radius = 0.5f) const;
+
 private:
     std::vector<TreeInstance> trees;
     std::vector<std::pair<glm::vec3, float>> benchList;

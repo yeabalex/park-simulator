@@ -3,7 +3,7 @@
 #include <algorithm>
 
 Camera::Camera() {
-    Position = glm::vec3(0.0f, 1.8f, 5.0f);
+    Position = glm::vec3(0.0f, 1.8f, 15.0f);
     WorldUp = glm::vec3(0.0f, 1.0f, 0.0f);
     Yaw = -90.0f;
     Pitch = 0.0f;

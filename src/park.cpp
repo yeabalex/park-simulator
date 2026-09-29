@@ -3359,3 +3359,41 @@ void Park::drawHUD(const glm::vec3& viewPos, float yaw, bool isSitting, bool isR
     glDisable(GL_BLEND);
     glEnable(GL_DEPTH_TEST);
 }
+
+bool Park::checkCollision(const glm::vec3& pos, float radius) const {
+    // Fountain
+    if (glm::length(glm::vec2(pos.x, pos.z)) < (radius + 7.0f)) return true;
+    
+    // Restaurants
+    if (glm::length(glm::vec2(pos.x - 250.0f, pos.z - 150.0f)) < (radius + 20.0f)) return true;
+    if (glm::length(glm::vec2(pos.x + 100.0f, pos.z + 30.0f)) < (radius + 20.0f)) return true;
+    
+    // Shop
+    if (glm::length(glm::vec2(pos.x - 50.0f, pos.z - 50.0f)) < (radius + 12.0f)) return true;
+
+    // Corner Buildings
+    if (glm::length(glm::vec2(pos.x - (-12.0f), pos.z - (-380.0f))) < (radius + 10.0f)) return true;
+    if (glm::length(glm::vec2(pos.x - 12.0f, pos.z - (-380.0f))) < (radius + 10.0f)) return true;
+    if (glm::length(glm::vec2(pos.x - (-12.0f), pos.z - 380.0f)) < (radius + 10.0f)) return true;
+    if (glm::length(glm::vec2(pos.x - 12.0f, pos.z - 380.0f)) < (radius + 10.0f)) return true;
+
+    // Check against trees
+    for (const auto& tree : trees) {
+        float treeRadius = 0.6f * tree.scale; 
+        float dist = glm::length(glm::vec2(pos.x - tree.pos.x, pos.z - tree.pos.z));
+        if (dist < (radius + treeRadius)) {
+            return true;
+        }
+    }
+    
+    // Check against benches
+    for (const auto& bench : benchList) {
+        float benchRadius = 1.2f; 
+        float dist = glm::length(glm::vec2(pos.x - bench.first.x, pos.z - bench.first.z));
+        if (dist < (radius + benchRadius)) {
+            return true;
+        }
+    }
+    
+    return false;
+}
